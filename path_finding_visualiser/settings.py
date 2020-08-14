@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import sys
-dir_path = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(dir_path)
-from specials import *
+# dir_path = os.path.dirname(os.path.realpath(__file__))
+# sys.path.append(dir_path)
+# from specials import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,9 +26,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 DEBUG = (os.environ.get('DEBUG_VALUE')=='True')
 
-ALLOWED_HOSTS = ['path-maze-visualization.herokuapp.com']
+ALLOWED_HOSTS = ['path-maze-visualization.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -122,6 +124,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 
-STATIC_ROOT = os.path.join(dir_path, 'pfv/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'pfv/static')
 
 STATIC_URL = '/static/'
