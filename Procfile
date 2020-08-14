@@ -1,0 +1,1 @@
+web: gunicorn path-maze-visualization.wsgi
