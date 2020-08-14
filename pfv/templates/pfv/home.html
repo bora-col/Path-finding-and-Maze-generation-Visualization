@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		{% load static %}
+		<link href="{% static 'pfv/css/main.css' %}" rel="stylesheet" type="text/css"/>
+		<script src="{% static 'pfv/js/main.js' %}" type="text/javascript"></script>
+
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+		<script>
+			function ajaxCall(post_data){
+				return $.ajax({
+					type: "POST",
+					url: "",
+					data: {
+						values: JSON.stringify(post_data),
+						csrfmiddlewaretoken: '{{ csrf_token }}'
+					},
+					dataType: 'json'
+				});
+			}
+		</script>
+	</head>
+
+
+
+
+	<body onload="createGrid(15)">
+
+
+		<!-- NAVBAR -->
+		<nav style="font-size:70%" class="navbar navbar-expand-sm bg-dark navbar-dark">
+			<!-- Brand -->
+			<a class="navbar-brand" href="#">PFV</a>
+		  
+			<!-- Links -->
+			<ul class="navbar-nav">
+			
+			  <!-- Dropdown -->
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+				  Theme
+				</a>
+				<div class="dropdown-menu">
+				  <button onclick="changeTheme(this)" class="dropdown-item button" value=0>Dark</button>
+				  <button onclick="changeTheme(this)" class="dropdown-item button" value=1>Light</button>
+				</div>
+			  </li>
+
+			  <!-- Dropdown -->
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+				  Grid Size
+				</a>
+				<div class="dropdown-menu">
+				  <button onclick="changeGrid(this)" class="dropdown-item button size-button" value=5>5px cells</button>
+				  <button onclick="changeGrid(this)" class="dropdown-item button size-button" value=7>7px cells</button>
+				  <button onclick="changeGrid(this)" class="dropdown-item button size-button" value=10>10px cells</button>
+				  <button onclick="changeGrid(this)" class="dropdown-item button size-button" value=15>15px cells</button>
+				  <button onclick="changeGrid(this)" class="dropdown-item button size-button" value=25>25px cells</button>
+				  <button onclick="changeGrid(this)" class="dropdown-item button size-button" value=40>40px cells</button>
+				  <button onclick="changeGrid(this)" class="dropdown-item button size-button" value=60>60px cells</button>
+				</div>
+			  </li>
+
+			  <!-- Dropdown -->
+			  <li class="nav-item dropdown">
+				<!-- <button class="button size-button nav-link dropdown-toggle" id="shortestpath-selection-button" data-toggle="dropdown">Shortest Path Algorithm</button> -->
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Shortest Path Algorithm</a>
+				<div class="dropdown-menu">
+					<button onclick="changeShortestPathAlgorithm(this)" class="dropdown-item button" value=0>Dijkstra's Algorithm</button>
+					<button onclick="changeShortestPathAlgorithm(this)" class="dropdown-item button" value=1>A* Algorithm</button>
+					<button onclick="changeShortestPathAlgorithm(this)" class="dropdown-item button" value=2>Bellman-Ford Algorithm</button>
+					<button onclick="changeShortestPathAlgorithm(this)" class="dropdown-item button" value=3>Floyd-Warshall Algoithm</button>
+				</div>
+			  </li>
+
+			  <!-- Dropdown -->
+			  <li class="nav-item dropdown">
+				<!-- <button class="button size-button nav-link dropdown-toggle" id="maze-selection-button" data-toggle="dropdown">Generate Random Maze</button> -->
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Generate Maze</a>
+				<div class="dropdown-menu">
+				  <form method="" id="maze-form"> {% csrf_token %}
+				    <button class="dropdown-item" id="maze-button" value=88 type='submit'>Recursive Backtracking</button>
+				  </form>
+
+				  <form method="" id="maze-form"> {% csrf_token %}
+				    <button class="dropdown-item" id="maze-button" value=88 type='submit'>Randomized Prim's Algorithm</button>
+				  </form>
+
+				  <form method="" id="maze-form"> {% csrf_token %}
+				    <button class="dropdown-item" id="maze-button" value=88 type='submit'> Randomized Kruskal's Algorithm</button>
+				  </form>
+
+				  <form method="" id="maze-form"> {% csrf_token %}
+				    <button class="dropdown-item" id="maze-button" type='submit'>Randomized Depth-First Search Algorithm</button>
+				  </form>
+
+				</div>
+			  </li>
+
+			  <!-- Dropdown -->
+			  <!-- <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Random Walls</a>
+				<div class="dropdown-menu">
+					<button class="dropdown-item button" onclick="createRandomWalls(5)">5%</button>
+					<button class="dropdown-item button" onclick="createRandomWalls(10)">10%</button>
+					<button class="dropdown-item button" onclick="createRandomWalls(25)">25%</button>
+					<button class="dropdown-item button" onclick="createRandomWalls(100)">100%</button>
+
+				</div>
+			  </li> -->
+
+			  <!-- Button -->
+			  <li class="nav-item">
+				<button class="button nav-link" id="random-walls-button" onclick="createRandomWalls(25)">Random Walls</button>
+			  </li>
+			  
+			  <!-- Button -->
+			  <li class="nav-item">
+				<button class="button nav-link" id="random-start-end-points-button" onclick="giveRandomStartAndEndPoints()">Random <span style="color:orange">Start</span>&<span style="color:blue">End</span> Points</button>
+			  </li>
+
+			  <!-- Button -->
+			  <li class="nav-item">
+				<form method="POST" id="fsp-form"> {% csrf_token %}
+					<button class="button nav-link" id="fsp-button" type='submit'>Find Shortest Path!</button>
+				</form>
+			  </li>
+
+			  <!-- Button -->
+			  <li class="nav-item">
+				<button class="button nav-link" id="clear-grid-button" onclick="clearGrid()">Clear Grid</button>
+			  </li>
+
+			</ul>
+		</nav>
+		
+
+
+
+
+		<!-- GRID -->
+		<div id="main">
+			<div id="grid">
+				<table id="grid_table" style="width:100%">
+
+				</table>
+			</div>
+        </div>
+		
+		
+		
+	</body>
+	
+</html>
