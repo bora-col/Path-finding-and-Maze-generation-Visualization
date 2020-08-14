@@ -124,7 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 
-STATIC_ROOT = os.path.join(dir_path, 'static')
+STATIC_ROOT = os.path.join(dir_path, 'pfv/static')
 print(dir_path)
 print("STATIC_ROOT: ", STATIC_ROOT)
 
