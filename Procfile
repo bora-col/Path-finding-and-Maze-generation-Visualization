@@ -1,1 +1,1 @@
-web: gunicorn path-maze-visualization.wsgi
+web: gunicorn pfv.wsgi
