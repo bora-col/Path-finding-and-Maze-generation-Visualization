@@ -2,7 +2,6 @@ import json
 import sys
 import os
 dir_path = os.path.dirname(os.path.realpath(__file__))
-print("dir_path: ", dir_path)
 sys.path.append(dir_path)
 from django.shortcuts import render
 from django.http import HttpResponse

@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sys
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(dir_path)
 from specials import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
