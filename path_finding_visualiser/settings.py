@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import sys
-# dir_path = os.path.dirname(os.path.realpath(__file__))
+dir_path = os.path.dirname(os.path.realpath(__file__))
 # sys.path.append(dir_path)
 # from specials import *
 
@@ -124,7 +124,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(dir_path, 'static')
+print(dir_path)
 print("STATIC_ROOT: ", STATIC_ROOT)
 
 STATIC_URL = '/static/'
