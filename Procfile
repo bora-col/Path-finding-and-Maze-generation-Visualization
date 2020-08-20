@@ -1,1 +1,0 @@
-web: gunicorn path_finding_visualiser.wsgi
