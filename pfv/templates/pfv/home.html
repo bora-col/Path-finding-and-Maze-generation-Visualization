@@ -579,6 +579,7 @@
 				// Create Random Maze Ajax call
 				$(document).on('submit', '#maze-form', function(e){
 					e.preventDefault();
+					document.getElementById("mazenavbardrop").click();
 					clearGrid();
 					var post_data = {
 						"row_count": total_row_count,
@@ -626,7 +627,7 @@
 			
 			  <!-- Dropdown -->
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="themenavbardrop" data-toggle="dropdown">
 				  Theme
 				</a>
 				<div class="dropdown-menu">
@@ -637,7 +638,7 @@
 
 			  <!-- Dropdown -->
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="gridsizenavbardrop" data-toggle="dropdown">
 				  Grid Size
 				</a>
 				<div class="dropdown-menu">
@@ -654,7 +655,7 @@
 			  <!-- Dropdown -->
 			  <li class="nav-item dropdown">
 				<!-- <button class="button size-button nav-link dropdown-toggle" id="shortestpath-selection-button" data-toggle="dropdown">Shortest Path Algorithm</button> -->
-				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Shortest Path Algorithm</a>
+				<a class="nav-link dropdown-toggle" href="#" id="spnavbardrop" data-toggle="dropdown">Shortest Path Algorithm</a>
 				<div class="dropdown-menu">
 					<button onclick="changeShortestPathAlgorithm(this)" class="dropdown-item" value=0>Dijkstra's Algorithm</button>
 					<button onclick="changeShortestPathAlgorithm(this)" class="dropdown-item" value=1 disabled>A* Algorithm</button>
@@ -666,7 +667,7 @@
 			  <!-- Dropdown -->
 			  <li class="nav-item dropdown">
 				<!-- <button class="button size-button nav-link dropdown-toggle" id="maze-selection-button" data-toggle="dropdown">Generate Random Maze</button> -->
-				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Generate Maze</a>
+				<a class="nav-link dropdown-toggle" href="#" id="mazenavbardrop" data-toggle="dropdown">Generate Maze</a>
 				<div class="dropdown-menu">
 				  <form method="" id="maze-form"> {% csrf_token %}
 				    <button class="dropdown-item" id="maze-button" value=88 type='submit'>Recursive Backtracking</button>
