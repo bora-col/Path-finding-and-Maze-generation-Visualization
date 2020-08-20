@@ -32,6 +32,8 @@ DEBUG = (os.environ.get('DEBUG_VALUE')=='True')
 
 ALLOWED_HOSTS = ['path-maze-visualization.herokuapp.com', 'localhost', '127.0.0.1']
 
+DISABLE_COLLECTSTATIC=1
+
 
 # Application definition
 
